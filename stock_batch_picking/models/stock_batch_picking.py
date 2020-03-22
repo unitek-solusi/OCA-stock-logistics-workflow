@@ -69,28 +69,29 @@ class StockBatchPicking(models.Model):
 
     notes = fields.Text('Notes', help='free form remarks')
 
-    move_lines = fields.One2many(
+    move_lines = fields.Many2many(
         'stock.move',
         readonly=True,
         string='Related stock moves',
         compute='_compute_move_lines'
     )
 
-    move_line_ids = fields.One2many(
+    move_line_ids = fields.Many2many(
         'stock.move.line',
-        readonly=True,
         string='Related pack operations',
-        compute='_compute_move_line_ids'
+        compute='_compute_move_line_ids',
+        # HACK: Allow to write sml fields from this model
+        inverse=lambda self: self,
     )
 
-    entire_package_ids = fields.One2many(
+    entire_package_ids = fields.Many2many(
         comodel_name='stock.quant.package',
         compute='_compute_entire_package_ids',
         help='Those are the entire packages of a picking shown in the view of '
              'operations',
     )
 
-    entire_package_detail_ids = fields.One2many(
+    entire_package_detail_ids = fields.Many2many(
         comodel_name='stock.quant.package',
         compute='_compute_entire_package_ids',
         help='Those are the entire packages of a picking shown in the view of '
@@ -206,3 +207,14 @@ class StockBatchPicking(models.Model):
         """
         self.mapped('active_picking_ids').write({'batch_picking_id': False})
         self.verify_state()
+
+    @api.multi
+    def action_view_stock_picking(self):
+        """This function returns an action that display existing pickings of
+        given batch picking.
+        """
+        self.ensure_one()
+        pickings = self.mapped('picking_ids')
+        action = self.env.ref('stock.action_picking_tree_all').read([])[0]
+        action['domain'] = [('id', 'in', pickings.ids)]
+        return action

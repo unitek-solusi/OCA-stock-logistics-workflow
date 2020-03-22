@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo11-addon-mrp_stock_picking_restrict_cancel',
+        'odoo11-addon-product_cost_price_avco_sync',
         'odoo11-addon-product_expiry_simple',
         'odoo11-addon-purchase_stock_picking_restrict_cancel',
         'odoo11-addon-stock_batch_picking',
@@ -17,6 +18,7 @@ setuptools.setup(
         'odoo11-addon-stock_no_negative',
         'odoo11-addon-stock_pack_operation_auto_fill',
         'odoo11-addon-stock_picking_auto_create_lot',
+        'odoo11-addon-stock_picking_back2draft',
         'odoo11-addon-stock_picking_backorder_strategy',
         'odoo11-addon-stock_picking_customer_ref',
         'odoo11-addon-stock_picking_deactivate_immediate_transfer',
@@ -26,6 +28,7 @@ setuptools.setup(
         'odoo11-addon-stock_picking_operation_quick_change',
         'odoo11-addon-stock_picking_package_preparation',
         'odoo11-addon-stock_picking_package_preparation_line',
+        'odoo11-addon-stock_picking_purchase_order_link',
         'odoo11-addon-stock_picking_purchase_propagate',
         'odoo11-addon-stock_picking_restrict_cancel_with_orig_move',
         'odoo11-addon-stock_picking_sale_order_link',
@@ -33,6 +36,7 @@ setuptools.setup(
         'odoo11-addon-stock_picking_show_backorder',
         'odoo11-addon-stock_picking_show_return',
         'odoo11-addon-stock_picking_whole_scrap',
+        'odoo11-addon-stock_return_request',
         'odoo11-addon-stock_split_picking',
     ],
     classifiers=[
